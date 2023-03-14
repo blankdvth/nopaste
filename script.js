@@ -31,7 +31,7 @@ const initCodeEditor = () => {
     editor.on('change', () => {
         var wordCount = editor.getValue().split(' ').concat(editor.getValue().split('\n')).filter(function (str) {return str != ''}).length;
         wordCount -= (wordCount > 0 ? 1 : 0);
-        statsEl.innerHTML = `Characters: ${editor.getValue().length} | Words: ${wordCount} |  Lines: ${editor.lineCount()}`;
+        statsEl.innerHTML = `Characters: ${editor.getValue().length.toLocaleString()} | Words: ${wordCount.toLocaleString()} |  Lines: ${editor.lineCount().toLocaleString()}`;
         hideCopyBar();
     });
 };
