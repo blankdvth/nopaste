@@ -62,7 +62,7 @@ const initLangSelector = () => {
             const language = e.data || { mime: null, mode: null };
             editor.setOption('mode', language.mime);
             CodeMirror.autoLoadMode(editor, language.mode);
-            document.title = e.text && e.text !== 'Plain Text' ? `NoPaste+ - ${e.text} Snippet - blank_dvth` : 'NoPaste+';
+            document.title = e.text && e.text !== 'Plain Text' ? `NoPaste+ - ${e.text} Snippet` : 'NoPaste+';
         },
     });
 

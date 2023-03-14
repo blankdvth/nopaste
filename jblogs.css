@@ -1,43 +1,79 @@
-.cm-jb-header {
-  color: #555555;
+.cm-jb-irrelevant {
+  color: #404040;
 }
   
 .cm-jb-time {
-color: #005893;
+  color: #005893;
 }
 
 .cm-jb-player {
-color: #BFA350;
+  color: #9c8dc4;
 }
 
-.cm-jb-teamct {
-color: #0093B4;
+.cm-jb-player-target {
+  color: #756CB2;
 }
 
-.cm-jb-teamt {
-color: #FF6363;
+.cm-jb-role-warden {
+  color: #4366d9;
 }
 
-.cm-jb-rebel {
-color: #AA2B2B;
+.cm-jb-role-guard {
+  color: #0093B4;
 }
 
-.cm-jb-action {
-color: #669966;
+.cm-jb-role-prisoner {
+  color: #C19C00;
 }
 
-.cm-jb-target {
-color: #5EDE6A;
+.cm-jb-role-rebel {
+  color: #c50e13;
 }
 
-.cm-jb-damage {
-color: #BD3900;
+.cm-jb-action-general {
+  color: #3b734d;
+}
+
+.cm-jb-action-pressed {
+  color: #4c7d6b;
+}
+
+.cm-jb-action-threw {
+  color: #39ac39;
+}
+
+.cm-jb-action-hurt {
+  color: #b63f3f;
+}
+
+.cm-jb-action-killed {
+  color: #ff2e2e;
+}
+
+.cm-jb-action-picked {
+  color: #6b8f6b;
+}
+
+.cm-jb-action-reskinned {
+  color: #7f567f;
+}
+
+.cm-jb-action-dropped {
+  color: #6b4c2f;
+}
+
+.cm-jb-action-broke {
+  color: #6b7c8f;
 }
 
 .cm-jb-damageamount {
-color: #AC0000;
+  color: #91633b;
 }
 
 .cm-jb-weapon {
-color: #AFAFAF;
+  color: #AFAFAF;
+}
+
+.cm-jb-action-warden-related {
+  color: #9db5e5;
 }

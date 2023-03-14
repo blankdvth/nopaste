@@ -3,8 +3,9 @@ A custom fork of nopaste with various enhancements, changes, and additions for m
 
 ## Added Features
 - Simplified buttons
-- Added support for GitHub Gists
+- Added support for GitHub Gists (``)
 - Added support for my own Hastebin instance
+- Added support
 - Custom syntax highlighting
 - Added words to footer
 - Updated sorting of languages
