@@ -37,7 +37,7 @@
             return "jb-time";
           }
   
-          if(stream.match(/^-+(\[?(\[ JAILBREAK LOGS \])\]?-+)?$/)) {
+          if(stream.match(/^-+(\[?(\[ JAILBREAK LOGS( END)? \])\]?-+)?$/)) {
             stream.skipToEnd();
             return "jb-irrelevant";
           }
