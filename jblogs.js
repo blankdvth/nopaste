@@ -37,10 +37,15 @@
           return "jb-time";
         }
         
-        if(stream.match(/^-+(\[?(\[ JAILBREAK LOGS( END)? \])\]?-+)?$/)) {
+        if (stream.match(/^-+(\[?(\[ JAILBREAK LOGS( END)? \])\]?-+)?$/)) {
           stream.skipToEnd();
           return "jb-irrelevant";
         }
+        if (stream.match(/^\[DS\] .*$/)) {
+          stream.skipToEnd();
+          return "jb-irrelevant";
+        }
+
         var roleMatch = stream.match(/\((Guard|Warden|Prisoner|Rebel)\)/i);
         if (roleMatch) {
           state.matchedPlayer = false;
