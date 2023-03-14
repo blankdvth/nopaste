@@ -13,7 +13,6 @@ const init = () => {
     initCode();
     initClipboard();
     initModals();
-    checkUpdates();
 };
 
 const initCodeEditor = () => {
@@ -315,19 +314,6 @@ const hash = function (str, seed = 0) {
     h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
     const h = 4294967296 * (2097151 & h2) + (h1 >>> 0);
     return h.toString(36).substr(0, 4).toUpperCase();
-};
-
-const checkUpdates = () => {
-    // Get local version
-    fetch('https://nopaste.blankdvth.com/version.txt').then(res => res.text()).then(function (localVersion) {
-        fetch('https://raw.githubusercontent.com/blankdvth/nopaste/master/version.txt', {cache: "no-store"}).then(res => res.text()).then(function (remoteVersion) {
-            localVersion = parseInt(localVersion);
-            remoteVersion = parseInt(remoteVersion);
-            if (localVersion < remoteVersion) {
-                byId('update-notif').classList.remove('hidden');
-            }
-        });
-    });
 };
 
 // Only for tests purposes
