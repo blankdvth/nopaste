@@ -92,6 +92,12 @@ const initCode = () => {
         return;
     }
 
+    // Allow pulling from any URL with the syntax nopaste.blankdvth.com/#url/https://example.com
+    if (base64.startsWith('url/')) {
+        fetch(base64.substring(4)).then(res => res.text()).then(text => editor.setValue(text));
+        return;
+    }
+
     decompress(base64, (code, err) => {
         if (err) {
             console.error('Failed to decompress data: ' + err);

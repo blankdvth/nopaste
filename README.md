@@ -3,9 +3,9 @@ A custom fork of nopaste with various enhancements, changes, and additions for m
 
 ## Added Features
 - Simplified buttons
-- Added support for GitHub Gists (``)
-- Added support for my own Hastebin instance
-- Added support
+- Added support for GitHub Gists (`https://nopaste.blankdvth.com/#gist/<GISTID>`)
+- Added support for my own Hastebin instance (`https://nopaste.blankdvth.com/#haste/<HASTESLUG>`)
+- Added support for other raw content by URL (`https://nopaste.blankdvth.com/#url/<URL>`). Will likely fail as a result of CORS for most sites.
 - Custom syntax highlighting
 - Added words to footer
 - Updated sorting of languages
