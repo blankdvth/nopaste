@@ -167,6 +167,16 @@ button {
 button:hover {
     background-color: rgba(255, 255, 255, 0.1) !important;
 }
+#copy-btn {width: 68.6px;}
+#copy-btn-readonly {width: 121.9px;}
+#copy-btn, #copy-btn-readonly {
+    font-weight: bold;
+    height: 26px;
+}
+#copy-btn:hover, #copy-btn-readonly:hover {
+    color: #71CB78;
+    background-color: rgba(79, 146, 83, 0.5) !important;
+}
 .ss-content {
     background-color: #282936;
     color: #dedede;
