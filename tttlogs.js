@@ -47,7 +47,7 @@
           stream.skipToEnd();
           return "ttt-irrelevant";
         }
-        if (stream.match(/ -> \[/) || stream.match(/\]($| - )/))
+        if (stream.match(/ -> \[?/) || stream.match(/\]($| - )/))
           return "ttt-irrelevant";
         if (stream.match(/^BAD ACTION$/)) {
           stream.skipToEnd();
