@@ -7,7 +7,7 @@
 }
 
 .cm-ttt-round-number {
-    
+  color: #005893;
 }
 
 .cm-ttt-player {
@@ -31,11 +31,12 @@
 }
 
 .cm-ttt-action-damaged {
-
+  color: #b63f3f;
 }
 
 .cm-ttt-action-killed {
-
+  color: #ff2e2e;
+  text-shadow: 0 0 4px #ff2e2e80;
 }
 
 .cm-ttt-action-tased {
