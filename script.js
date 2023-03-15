@@ -43,6 +43,7 @@ const initLangSelector = () => {
         data: { mime: e.mime, mode: e.mode },
     }));
     // Add custom languages
+    data.push({ text: 'TTT Logs', value: 'tttlogs', data: { mime: "tttlogs", mode: "tttlogs" } });
     data.push({ text: 'Jailbreak Logs', value: 'jblogs', data: { mime: "jblogs", mode: "jblogs" } });
 
     // Push popular languages to the top

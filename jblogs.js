@@ -91,7 +91,7 @@
           
           if (state.damageStart) {
             if (stream.match(/\d+ damage/))
-            return "jb-damageamount";
+              return "jb-damageamount";
             stream.next();
             return "jb-weapon";
           }

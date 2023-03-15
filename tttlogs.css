@@ -1,0 +1,68 @@
+.cm-ttt-irrelevant {
+    color: #404040;
+}
+
+.cm-ttt-time {
+    color: #005893;
+}
+
+.cm-ttt-round-number {
+    
+}
+
+.cm-ttt-player {
+    color: #9c8dc4;
+}
+
+.cm-ttt-player-target {
+    color: #756CB2;
+}
+
+.cm-ttt-role-innocent {
+    color: #13a10e;
+}
+
+.cm-ttt-role-traitor {
+    color: #c50e13;
+}
+
+.cm-ttt-role-detective {
+    color: #4366d9;
+}
+
+.cm-ttt-action-damaged {
+
+}
+
+.cm-ttt-action-killed {
+
+}
+
+.cm-ttt-action-tased {
+
+}
+
+.cm-ttt-action-identified {
+
+}
+
+.cm-ttt-action-purchased {
+
+}
+
+.cm-ttt-damageamount {
+    color: #91633b;
+}
+
+.cm-ttt-headshot {
+
+}
+
+.cm-ttt-weapon {
+    color: #AFAFAF;
+}
+
+.cm-ttt-bad-action {
+    color: #c50e13;
+}
+  
