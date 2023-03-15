@@ -53,6 +53,10 @@
           stream.skipToEnd();
           return "ttt-bad-action";
         }
+        if (stream.match(/^TRAITOR DETECTED$/)) {
+          stream.skipToEnd();
+          return "ttt-traitor-detected";
+        }
 
         if (stream.match(/TTT Round #/)) {
           state.isRoundNumber = true;
@@ -121,8 +125,8 @@
         
         if (state.beginWeaponMatch) {
           stream.beginWeaponMatch = false;
-          stream.match(/[^\]]+/)
-          return "ttt-weapon";
+          var m = stream.match(/[^\]]+/)
+          return (m.includes("Wallhack")) ? "ttt-wallhack" : "ttt-weapon";
         }
         
         if (!state.matchedTime) {

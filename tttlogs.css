@@ -1,9 +1,9 @@
 .cm-ttt-irrelevant {
-    color: #404040;
+  color: #404040;
 }
 
 .cm-ttt-time {
-    color: #005893;
+  color: #005893;
 }
 
 .cm-ttt-round-number {
@@ -11,23 +11,23 @@
 }
 
 .cm-ttt-player {
-    color: #9c8dc4;
+  color: #9c8dc4;
 }
 
 .cm-ttt-player-target {
-    color: #756CB2;
+  color: #756CB2;
 }
 
 .cm-ttt-role-innocent {
-    color: #13a10e;
+  color: #13a10e;
 }
 
 .cm-ttt-role-traitor {
-    color: #c50e13;
+  color: #c50e13;
 }
 
 .cm-ttt-role-detective {
-    color: #4366d9;
+  color: #4366d9;
 }
 
 .cm-ttt-action-damaged {
@@ -40,30 +40,40 @@
 }
 
 .cm-ttt-action-tased {
-
+  color: #00FFFF;
 }
 
 .cm-ttt-action-identified {
-
+  color: #9aa8c7;
 }
 
 .cm-ttt-action-purchased {
-
+  color: #86b386;
 }
 
 .cm-ttt-damageamount {
-    color: #91633b;
+  color: #91633b;
 }
 
 .cm-ttt-headshot {
-
+  color: #d38ba6;
 }
 
 .cm-ttt-weapon {
-    color: #AFAFAF;
+  color: #AFAFAF;
+}
+
+.cm-ttt-wallhack {
+  color: #ff6600;
+  text-shadow: 0px 0px 5px #f36d6d;
 }
 
 .cm-ttt-bad-action {
-    color: #c50e13;
+  color: #c50e13;
+}
+
+.cm-ttt-traitor-detected {
+  color: #c50e13;
+  text-shadow: 0 0 5px #ffffff70;
 }
   
