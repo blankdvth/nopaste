@@ -139,7 +139,7 @@ const initModals = () => {
     });
 };
 
-const generateLink = (mode) => {
+const generateLink = (mode, id) => {
     const data = editor.getValue();
     compress(data, (base64, err) => {
         if (err) {
@@ -147,18 +147,18 @@ const generateLink = (mode) => {
             return;
         }
         const url = buildUrl(base64, mode);
-        showCopyBar(url);
+        showCopyBar(url, id);
     });
 };
 
 // Open the "Copy" bar and select the content
-const showCopyBar = (dataToCopy) => {
+const showCopyBar = (dataToCopy, id) => {
     copyToClipboard(dataToCopy);
     // await (navigator.clipboard).write(dataToCopy);
-    let orig = byId("copy-button").innerText;
-    byId("copy-button").innerText = "Copied!";
+    let orig = byId(id).innerText;
+    byId(id).innerText = "Copied!";
     setTimeout(() => {
-        byId("copy-button").innerText = orig;
+        byId(id).innerText = orig;
     }, 400);
 };
 
@@ -208,7 +208,10 @@ const openInNewTab = () => {
 // Build a shareable URL
 const buildUrl = (rawData, mode) => {
     const base = `${location.protocol}//${location.host}${location.pathname}`;
-    const query = shorten('Plain Text') === select.selected() ? '' : `?l=${encodeURIComponent(select.selected())}`;
+    var query = shorten('Plain Text') === select.selected() ? '' : `?l=${encodeURIComponent(select.selected())}`;
+    if (mode === 'readonly') {
+        query += (query ? '&' : '?') + 'readonly';
+    }
     const url = base + query + '#' + rawData;
     if (mode === 'markdown') {
         return `[NoPaste+ snippet](${url})`;

@@ -41,20 +41,6 @@ npm/microtip@0.2.2/microtip.min.css
                 document.body.classList.add('readonly');
             }
         </script>
-        <div id="copy" class="container-fluid hidden shadow-bottom hide-readonly">
-            <div class="row my-1">
-                <div class="col my-1">
-                    <input type="text" value="copy me" id="copy-link" class="px-2"
-                        onclick="this.setSelectionRange(0, this.value.length)" />
-                </div>
-                <div class="col-auto my-1">
-                    <button class="clipboard py-1 px-2 mx-1" id="copy-btn" data-clipboard-target="#copy-link" type="button">
-                        Copy
-                    </button>
-                    <button class="py-1 px-2 mx-1" onclick="hideCopyBar(false)" type="button">Cancel</button>
-                </div>
-            </div>
-        </div>
         <div id="controls" class="container-fluid shadow-bottom hide-readonly">
             <div class="row align-items-center justify-content-end my-1">
                 <div class="col-auto mb-1">
@@ -75,10 +61,11 @@ npm/microtip@0.2.2/microtip.min.css
                         aria-label="Unwrap Lines" data-microtip-position="bottom" role="tooltip" class="hidden">
                         <span class="icon-wrap-text"></span>
                     </button>
-                </div>
-                <div class="col-auto">
-                    <button class="py-1 px-2 mx-0 my-1" onclick="generateLink('url')" type="button" id="copy-button">
+                    <button class="clipboard py-1 px-2 mx-1" id="copy-btn" onclick="generateLink('url', 'copy-btn')" type="button">
                         Copy
+                    </button>
+                    <button class="clipboard py-1 px-2 mx-1" id="copy-btn-readonly" onclick="generateLink('readonly', 'copy-btn-readonly')" type="button">
+                        Copy Read Only
                     </button>
                 </div>
             </div>
