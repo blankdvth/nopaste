@@ -18,6 +18,7 @@
         // State variables used to determine where we're at in the stream
         return {
           noTarget: false,
+          noDamage: false,
           matchedTime: false,
           isRoundNumber: false,
           isTarget: false,
@@ -32,6 +33,7 @@
         if (stream.match(/^\[\d{2}:\d{2}\]/)) {
           // Reset state variables
           state.noTarget = false;
+          state.noDamage = false;
           state.matchedTime = true;
           state.isRoundNumber = false;
           state.isTarget = false;
@@ -109,6 +111,7 @@
             state.beginActionMatch = false;
             state.beginWeaponMatch = true;
             state.noTarget = true;
+            state.noDamage = true;
             return `ttt-action-${kwMatch[0]}`;
           }
         }
@@ -133,7 +136,7 @@
         }
         
         if (state.beginWeaponMatch) {
-          stream.beginWeaponMatch = false;
+          state.beginWeaponMatch = false;
           var m = stream.match(/[^\]]+/);
           // Wallhack is a special case, it's specially formatted
           return (m.includes("Wallhack")) ? "ttt-wallhack" : "ttt-weapon";

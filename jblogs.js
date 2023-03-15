@@ -16,27 +16,34 @@
     return {
       startState: function () {
         return {
-          damageStart: false,
-          matchedPlayer: false,
-          matchedPlayerTeam: false,
-          matchedTarget: false,
-          matchedAction: false,
           noTarget: false,
-          matchedTime: false
+          noDamage: false,
+          matchedTime: false,
+          isTarget: false,
+          beginPlayerRoleMatch: false,
+          beginActionMatch: false,
+          beginTargetRoleMatch: false,
+          beginDamageMatch: false,
+          beginWeaponMatch: false,
+          beginButtonMatch: false,
         };
       },
       token: function (stream, state) {
         if (stream.match(/^\[\d{2}:\d{2}\]/)) {
-          state.damageStart = false;
-          state.matchedPlayer = false;
-          state.matchedPlayerTeam = false;
-          state.matchedTarget = false;
-          state.matchedAction = false;
           state.noTarget = false;
+          state.noDamage = false;
           state.matchedTime = true;
+          state.isTarget = false;
+          state.beginPlayerRoleMatch = true;
+          state.beginActionMatch = false;
+          state.beginTargetRoleMatch = false;
+          state.beginDamageMatch = false;
+          state.beginWeaponMatch = false;
+          state.beginButtonMatch = false;
           return "jb-time";
         }
         
+        // Generic irrelevant lines (specific enough that we don't need to section them off to prevent false positives)
         if (stream.match(/^-+(\[?(\[ JAILBREAK LOGS( END)? \])\]?-+)?$/)) {
           stream.skipToEnd();
           return "jb-irrelevant";
@@ -46,72 +53,102 @@
           return "jb-irrelevant";
         }
 
-        var roleMatch = stream.match(/\((Guard|Warden|Prisoner|Rebel)\)/i);
-        if (roleMatch) {
-          state.matchedPlayer = false;
-          if (state.matchedPlayerTeam)
-          state.matchedTarget = true;
-          state.matchedPlayerTeam = true;
-          return `jb-role-${roleMatch[1].toLowerCase()}`;
+        // Specific irrelevant lines
+        if (state.beginTargetRoleMatch || state.beginWeaponMatch) {
+          if (stream.match(/ ((button|up|the weapon|a vent or wall|an?) |(\(not previously owned\)))/)) // Irrelevant Action Words
+            return "jb-irrelevant";
         }
-        if (state.matchedPlayerTeam) {
+        if (state.beginButtonMatch) {
+          if (stream.match(/(button|\(#)/))
+            return "jb-irrelevant";
+        }
+
+        // Player role match
+        if (state.beginPlayerRoleMatch || state.beginTargetRoleMatch) {
+          if (stream.match(/The World/)) {
+            state.beginPlayerRoleMatch = false;
+            state.beginActionMatch = true;
+            return "jb-player";
+          }
+          var roleMatch = stream.match(/\((Guard|Warden|Prisoner|Rebel)\)/);
+          if (roleMatch) {
+            if (state.beginPlayerRoleMatch)
+              state.beginActionMatch = true;
+            else {
+              if (state.noDamage) state.beginWeaponMatch = true;
+              else state.beginDamageMatch = true;
+            }
+            state.beginPlayerRoleMatch = false;
+            state.beginTargetRoleMatch = false;
+            return `jb-role-${roleMatch[1].toLowerCase()}`;
+          }
+        }
+        if (state.beginActionMatch) {
           var kwMatch = stream.match(/(pressed|hurt|killed|picked)/);
           if (kwMatch) { // Action Keywords
-            state.matchedAction = true;
-            if (kwMatch[0] == "picked") state.damageStart = true; // Weapon after target, no damage
+            state.beginActionMatch = false;
+            if (kwMatch[0] === "pressed") state.beginButtonMatch = true;
+            else {
+              state.beginTargetRoleMatch = true;
+              state.isTarget = true;
+            }
+            if (kwMatch[0] === "picked") state.noDamage = true;
             return `jb-action-${kwMatch[0]}`;
           }
           kwMatch = stream.match(/(reskinned|dropped|broke|threw)/);
           if (kwMatch) { // Action Keywords
-            state.matchedAction = true;
+            state.beginActionMatch = false;
+            state.beginWeaponMatch = true;
             state.noTarget = true;
+            state.noDamage = true;
             return `jb-action-${kwMatch[0]}`;
           }
           if (stream.match(/(is now warden|has died and is no longer warden)/)) {
-            state.matchedAction = true;
+            state.beginActionMatch = false;
+            stream.skipToEnd();
             return "jb-action-warden-related";
           }
-          if (state.matchedAction && !state.matchedTarget && stream.match(/ (button|up|the weapon|a vent or wall|an?) /)) { // Irrelevant Action Words
+        }
+
+        if (state.beginDamageMatch) {
+          if (stream.match(/with/))
+            return "jb-irrelevant";
+          if (stream.match(/\d+ damage/))
+            return "jb-damageamount"
+          if (stream.match(/ \(/)) {
+            state.beginDamageMatch = false;
+            state.beginWeaponMatch = true;
             return "jb-irrelevant";
           }
-          
-          if (state.matchedAction && !state.matchedTarget) {
-            if (state.noTarget && state.matchedTime) {
-              stream.next();
-              return "jb-weapon"
-            }
-            stream.next();
-            return "jb-player-target";
-          }
-          
-          if (stream.match(/with/)) {
-            state.damageStart = true;
-            return "jb-irrelevant";
-          }
-          
-          if (state.damageStart) {
-            if (stream.match(/\d+ damage/))
-              return "jb-damageamount";
-            stream.next();
+        }
+
+        if (state.beginWeaponMatch) {
+          if (stream.match(/[^).]/))
             return "jb-weapon";
+          if (stream.match(/[).]/)) {
+            state.beginWeaponMatch = false;
+            return "jb-irrelevant";
           }
-          stream.next();
-          return null;
         }
-        
-        if (stream.match(/The World/)) {
-          stream.next();
-          state.matchedPlayerTeam = true;
-          return "jb-player";
+
+        if (state.beginButtonMatch) {
+          if (stream.match(/'.*'/))
+            return "jb-button-name";
+          if (stream.match(/\d+/))
+            return "jb-button-id";
+          if (stream.match(/\)$/)) {
+            state.beginButtonMatch = false;
+            return "jb-irrelevant";
+          }
         }
-        
         
         if (!state.matchedTime) {
           stream.skipToEnd();
-          return null;
+          return "jb-irrelevant";
         }
+
         stream.next();
-        return "jb-player";
+        return (state.isTarget) ? "jb-player-target" : "jb-player";
       },
     }
   });
