@@ -22,6 +22,8 @@ const initCodeEditor = () => {
         theme: 'dracula',
         readOnly: readOnly,
         lineWrapping: false,
+        search: {bottom: true},
+        extraKeys: {"Ctrl-F": "findPersistent", "Alt-F": "find"}
     });
     if (readOnly) {
         document.body.classList.add('readonly');
