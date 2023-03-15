@@ -19,6 +19,7 @@
           noTarget: false,
           matchedTime: false,
           isRoundNumber: false,
+          isTarget: false,
           beginPlayerRoleMatch: false,
           beginActionMatch: false,
           beginTargetRoleMatch: false,
@@ -31,6 +32,7 @@
           state.noTarget = false;
           state.matchedTime = true;
           state.isRoundNumber = false;
+          state.isTarget = false;
           state.beginPlayerRoleMatch = true;
           state.beginActionMatch = false;
           state.beginTargetRoleMatch = false;
@@ -92,6 +94,7 @@
           var kwMatch = stream.match(/(damaged|killed|tased|identified)/);
           if (kwMatch) { // Action Keywords
             state.beginActionMatch = false;
+            state.isTarget = true;
             state.beginTargetRoleMatch = true;
             return `ttt-action-${kwMatch[0]}`;
           }
@@ -134,7 +137,7 @@
           return null;
         }
         stream.next()
-        return "ttt-player";
+        return (state.isTarget) ? "ttt-player-target" : "ttt-player";
       },
     }
   });
